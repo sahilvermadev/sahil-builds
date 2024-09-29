@@ -1,101 +1,63 @@
-import Image from "next/image";
+import Link from 'next/link'
 
-export default function Home() {
+interface BlogPost {
+  title: string;
+  date: string;
+  slug: string;
+}
+
+const latestPosts: BlogPost[] = [
+  { title: "Hibiclens", date: "September 14, 2024", slug: "hibiclens" },
+  { title: "Good Forms", date: "September 13, 2024", slug: "good-forms" },
+  { title: "Finding questions and answers about why I like books", date: "September 12, 2024", slug: "why-i-like-books" },
+  { title: "The Dev Tools Performance Monitor Panel", date: "September 03, 2024", slug: "dev-tools-performance" },
+  { title: "Vibe Check №34", date: "August 24, 2024", slug: "vibe-check-34" },
+]
+
+export default function HomePage() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="min-h-screen text-[#8b4c45] relative">
+      {/* Background dots */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(100)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute bg-[#ffb3a7] rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              width: `${Math.random() * 4 + 1}px`,
+              height: `${Math.random() * 4 + 1}px`,
+              opacity: Math.random() * 0.3 + 0.1,
+            }}
+          />
+        ))}
+      </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <div className="container mx-auto px-4 py-8 relative z-10">
+        <h1 className="text-8xl sm:text-9xl font-bold text-center my-12 relative">
+          <span className="absolute inset-0 text-[#ffeae5] z-10">MY YAP</span>
+          <span className="relative z-0 text-transparent" style={{ WebkitTextStroke: '2px #8b4c45' }}>MY YAP</span>
+        </h1>
+
+        <div className="max-w-2xl mx-auto">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-2xl font-semibold">Latest Posts</h2>
+            <Link href="/archive" className="px-4 py-2 bg-[#d47d6f] text-white rounded hover:bg-[#c26a5c] transition-colors duration-300">
+              Read archive
+            </Link>
+          </div>
+
+          <div className="space-y-4">
+            {latestPosts.map((post) => (
+              <Link key={post.slug} href={`/archive/${post.slug}`} className="block border border-[#d47d6f] p-4 rounded hover:bg-[#ffd6cc] transition-colors duration-300">
+                <h3 className="font-semibold text-lg">{post.title}</h3>
+                <p className="text-sm text-[#a25a4e]">{post.date}</p>
+              </Link>
+            ))}
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
     </div>
   );
 }
