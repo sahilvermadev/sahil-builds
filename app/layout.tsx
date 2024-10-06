@@ -1,8 +1,8 @@
 // app/layout.tsx
 import './globals.css';
 import type { Metadata } from 'next';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 export const metadata: Metadata = {
   title: 'My Website',
@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Header />
-        <main>{children}</main>
+        <main className="flex-grow container mx-auto px-4 py-8">{children}</main>
         <Footer />
       </body>
     </html>
