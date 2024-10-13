@@ -25,6 +25,11 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
+      - name: Run Fetch Books Script
+        run: npm run sync-book-data
+        env:
+          GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_BOOKS_API_KEY }}
+
       - name: Commit and Push Changes
         run: |
           git config --local user.name "github-actions[bot]"
