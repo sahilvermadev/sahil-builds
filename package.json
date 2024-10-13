@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "sync-notes": "node scripts/fetch-notes.js"
+    "sync-notes": "node scripts/fetch-notes.js",
+    "sync-book-data": "node scripts/fetch-books.js"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.0.1",
