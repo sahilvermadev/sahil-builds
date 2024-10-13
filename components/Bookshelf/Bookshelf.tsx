@@ -1,72 +1,62 @@
 // components/Bookshelf/Bookshelf.tsx
-'use client'; // <-- Add this directive
+'use client';
 
 import { useState } from 'react';
 import { StarIcon } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from 'next/image';
-
-// Define the Book type
-type Book = {
-  id: string;
-  title: string;
-  author: string;
-  coverImage: string;
-  rating: number;
-  genre: string;
-  year: number;
-};
 
 // Import books data
 import { books } from '@/data/books';
 
-// Define genres
-const genres = [
-  'All',
-  'Biography',
-  'Business',
-  'Climate Change',
-  'Fantasy',
-  'Graphic Novel',
-  'Politics',
-  'Pop-sci',
-  'Sci-fi',
-  'Social Justice',
-  'Technology',
-];
+// Define the Book type that matches the data in books.ts
+interface Book {
+  title: string;
+  author: string;
+  isbn: string;
+  year_read: number;
+  rating: number;
+  genre: string;
+  cover_image?: string;
+}
 
-export default function Bookshelf() {
+const Bookshelf = () => {
   const [selectedGenre, setSelectedGenre] = useState<string>('All');
+
+  // Extract genres dynamically from the books data
+  const genres = ['All', ...Array.from(new Set(books.map((book) => book.genre)))];
 
   // Filter books based on selected genre
   const filteredBooks = selectedGenre === 'All'
     ? books
-    : books.filter(book => book.genre === selectedGenre);
+    : books.filter((book) => book.genre.toLowerCase() === selectedGenre.toLowerCase());
 
-  // Group books by year
+  // Group books by year read
   const booksByYear = filteredBooks.reduce<Record<number, Book[]>>((acc, book) => {
-    if (!acc[book.year]) {
-      acc[book.year] = [];
+    if (!acc[book.year_read]) {
+      acc[book.year_read] = [];
     }
-    acc[book.year].push(book);
+    acc[book.year_read].push(book);
     return acc;
   }, {});
 
   // Sort years in descending order
   const sortedYears = Object.keys(booksByYear)
-    .map(year => Number(year))
+    .map((year) => Number(year))
     .sort((a, b) => b - a);
 
   return (
     <div className="container mx-auto px-4">
-        <h1 className="text-8xl m:text-9xl font-bold text-center my-12 relative">
-          <span className="absolute inset-0 text-[#d47d6f] z-10">bookShelf</span>
-          <span className="relative z-0 text-transparent" style={{ WebkitTextStroke: '2px #8b4c45' }}>bookShelf</span>
-        </h1>
+      <h1 className="text-8xl m:text-9xl font-bold text-center my-12 relative">
+        <span className="absolute inset-0 text-[#d47d6f] z-10">bookShelf</span>
+        <span className="relative z-0 text-transparent" style={{ WebkitTextStroke: '2px #8b4c45' }}>bookShelf</span>
+      </h1>
+
       {/* Genre Filter */}
       <div className="mb-8">
         <p className="text-lg mb-2 text-center">Filter by Genre:</p>
         <div className="flex flex-wrap justify-center gap-2">
-          {genres.map(genre => (
+          {genres.map((genre) => (
             <button
               key={genre}
               onClick={() => setSelectedGenre(genre)}
@@ -83,26 +73,37 @@ export default function Bookshelf() {
       </div>
 
       {/* Books Grouped by Year */}
-      {sortedYears.map(year => (
+      {sortedYears.map((year) => (
         <div key={year} className="mb-12">
           <h2 className="text-2xl font-semibold mb-4 text-center">
             {year} <span className="text-sm font-normal text-gray-500">({booksByYear[year].length} {booksByYear[year].length > 1 ? 'books' : 'book'})</span>
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            {booksByYear[year].map(book => (
-              <div key={book.id} className="flex flex-col items-center">
-                <div className="w-40 h-60 relative mb-2">
-                  <Image
-                    src={book.coverImage}
-                    alt={`Cover of ${book.title}`}
-                    layout="fill"
-                    objectFit="cover"
-                    className="rounded-md shadow-md"
-                  />
-                </div>
-                <h3 className="font-semibold text-lg text-center line-clamp-2">{book.title}</h3>
-                <p className="text-sm text-gray-600 text-center">{book.author}</p>
-                {book.rating > 0 && (
+            {booksByYear[year].map((book, index) => (
+              <Card key={`${book.isbn}-${index}`} className="flex flex-col items-center">
+                <CardHeader>
+                  <CardTitle>{book.title}</CardTitle>
+                  <CardDescription>{book.author}</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  {book.cover_image ? (
+                    <div className="w-40 h-60 relative mb-2">
+                      <Image
+                        src={book.cover_image}
+                        alt={`Cover of ${book.title}`}
+                        layout="fill"
+                        objectFit="cover"
+                        className="rounded-md shadow-md"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-40 h-60 bg-gray-300 flex items-center justify-center mb-2 rounded-md shadow-md">
+                      <p className="text-gray-500">No cover available</p>
+                    </div>
+                  )}
+                </CardContent>
+                <CardFooter>
+                  <p className="text-sm text-gray-500">Rating: {book.rating}</p>
                   <div className="flex items-center mt-1">
                     {[...Array(5)].map((_, i) => (
                       <StarIcon
@@ -111,12 +112,14 @@ export default function Bookshelf() {
                       />
                     ))}
                   </div>
-                )}
-              </div>
+                </CardFooter>
+              </Card>
             ))}
           </div>
         </div>
       ))}
     </div>
   );
-}
+};
+
+export default Bookshelf;

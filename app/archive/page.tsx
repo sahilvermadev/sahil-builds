@@ -82,23 +82,6 @@ export default function ArchivePage() {
 
   return (
     <div className="min-h-screen text-[#8b4c45] relative">
-      {/* Background dots */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(100)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute bg-[#ffb3a7] rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              width: `${Math.random() * 4 + 1}px`,
-              height: `${Math.random() * 4 + 1}px`,
-              opacity: Math.random() * 0.3 + 0.1,
-            }}
-          />
-        ))}
-      </div>
-
       <div className="container mx-auto px-4 py-8 relative z-10">
         <h1 className="text-8xl m:text-9xl font-bold text-center my-12 relative">
           <span className="absolute inset-0 text-[#d47d6f] z-10">archive</span>

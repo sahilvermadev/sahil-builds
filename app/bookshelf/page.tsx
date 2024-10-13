@@ -1,10 +1,9 @@
-// app/bookshelf/page.tsx
-
 import Bookshelf from '@/components/Bookshelf/Bookshelf';
 
 export default function BookshelfPage() {
   return (
-    <div className="min-h-screen bg-white text-gray-800 py-12">
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-8">My Bookshelf</h1>
       <Bookshelf />
     </div>
   );
