@@ -26,9 +26,10 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Run Fetch Books Script
-        run: npm run sync-book-data
+        run: npm run sync-book
         env:
           GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_BOOKS_API_KEY }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Commit and Push Changes
         run: |
