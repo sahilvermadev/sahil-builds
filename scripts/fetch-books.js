@@ -104,13 +104,16 @@ if (!GOOGLE_BOOKS_API_KEY) {
                 }
 
                 const bookInfo = items[0].volumeInfo;
-                const thumbnail = bookInfo.imageLinks?.thumbnail || '';
+                let thumbnail = bookInfo.imageLinks?.thumbnail || '';
 
                 if (!thumbnail) {
                     console.warn(`Warning: No cover image found for ISBN ${isbn}.`);
                     updatedBooks.push(book);
                     continue;
                 }
+
+                // Update thumbnail URL to higher resolution by changing zoom parameter
+                thumbnail = thumbnail.replace("zoom=1", "zoom=0");
 
                 // Construct the cover image filename
                 const coverFilename = `${isbn}.jpg`;
@@ -120,7 +123,7 @@ if (!GOOGLE_BOOKS_API_KEY) {
                 if (fs.existsSync(coverPath)) {
                     console.log(`Cover for ISBN ${isbn} already exists. Skipping download.`);
                 } else {
-                    // Download the cover image
+                    // Download the cover image with modified URL for higher resolution
                     const imageResponse = await axios.get(thumbnail, { responseType: 'stream' });
 
                     const writer = fs.createWriteStream(coverPath);

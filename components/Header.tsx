@@ -19,22 +19,22 @@ const Header: React.FC = () => {
         ))}
       </div>
       <nav className="container mx-auto flex items-center justify-start relative z-10">
-        <div className="flex space-x-4 text-[#8b4c45] text-m">
-          <Link href="/" className="hover:text-[#d47d6f] transition-colors duration-300">
+        <div className="flex space-x-4 text-m text-[#011627]">
+          <Link href="/" className="hover:text-[#b6244f] font-bold transition-colors duration-300">
             Home
           </Link>
-          <Link href="/about" className="hover:text-[#d47d6f] transition-colors duration-300">
+          <Link href="/about" className="hover:text-[#b6244f] font-bold transition-colors duration-300">
             About
           </Link>
-          <Link href="/archive" className="hover:text-[#d47d6f] transition-colors duration-300">
+          <Link href="/archive" className="hover:text-[#b6244f] font-bold transition-colors duration-300">
             Archive
           </Link>
-          <Link href="/bookshelf" className="hover:text-[#d47d6f] transition-colors duration-300">
+          <Link href="/bookshelf" className="hover:text-[#b6244f] font-bold transition-colors duration-300">
             Bookshelf
           </Link>
-          <Link href="/projects" className="hover:text-[#d47d6f] transition-colors duration-300">
+          {/* <Link href="/projects" className="hover:text-[#b6244f] font-bold transition-colors duration-300">
             Projects
-          </Link>
+          </Link> */}
         </div>
       </nav>
     </header>

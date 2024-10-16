@@ -2,6 +2,10 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import Link from 'next/link';
+import { Bungee_Shade } from '@next/font/google';
+
+const bungeeShade = Bungee_Shade({ weight: "400", subsets: ["latin"] });
+
 
 interface BlogPost {
   title: string;
@@ -81,17 +85,17 @@ export default function ArchivePage() {
   const totalPosts = posts.length;
 
   return (
-    <div className="min-h-screen text-[#8b4c45] relative">
+    <div className="min-h-screen text-[#011627] relative">
       <div className="container mx-auto px-4 py-8 relative z-10">
-        <h1 className="text-8xl m:text-9xl font-bold text-center my-12 relative">
-          <span className="absolute inset-0 text-[#d47d6f] z-10">archive</span>
-          <span className="relative z-0 text-transparent" style={{ WebkitTextStroke: '2px #8b4c45' }}>archive</span>
+      <h1 className={`${bungeeShade.className} text-3xl sm:text-6xl font-bold text-center my-12 relative`}>
+          <span className="absolute inset-0 text-[#011627] z-10">archive</span>
+          <span className="relative z-0 text-transparent" style={{ WebkitTextStroke: '2px #011627' }}>archive</span>
         </h1>
         <div className="max-w-2xl mx-auto">
           <div className="mb-12 text-center">
             <div className="flex flex-wrap justify-center gap-2">
               {tags.map((tag) => (
-                <span key={tag} className="text-[#d47d6f] text-sm hover:text-[#c26a5c] cursor-pointer transition-colors duration-300">
+                <span key={tag} className="text-[#b6244f] text-sm hover:text-[#011627] cursor-pointer transition-colors duration-300">
                   {tag}
                 </span>
               ))}
@@ -100,15 +104,15 @@ export default function ArchivePage() {
 
           {years.map((year) => (
             <div key={year} className="mb-12">
-              <h2 className="text-3xl font-bold mb-4 pb-2 border-b border-[#d47d6f]">
-                {year} <span className="text-xl font-normal text-[#a25a4e]">({postsByYear[year].length} posts)</span>
+              <h2 className="text-3xl font-bold mb-4 pb-2 border-b border-[#011627]">
+                {year} <span className="text-xl font-normal text-[#011627]">({postsByYear[year].length} posts)</span>
               </h2>
               <ul className="space-y-4">
                 {postsByYear[year].map((post) => (
                   <li key={post.slug}>
-                    <Link href={`/archive/${post.slug}`} className="block border border-[#000000] border-4 p-4 rounded hover:bg-[#ffd6cc] transition-colors duration-300">
+                    <Link href={`/archive/${post.slug}`} className="block post-border border-[#d47d6f] p-4 rounded hover:bg-[#d6f5ff] transition-colors duration-300">
                       <h3 className="text-xl font-semibold">{post.title}</h3>
-                      <p className="text-sm text-[#000000]">{post.date}</p>
+                      <p className="text-sm text-[#011627]">{post.date}</p>
                       {post.description && <p className="mt-2">{post.description}</p>}
                     </Link>
                   </li>

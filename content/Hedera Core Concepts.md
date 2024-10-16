@@ -1,5 +1,5 @@
 ---
-title: Untitled 2
+title: Hedera Core Concepts
 date: 2024-09-28
 description: 
 tags:
