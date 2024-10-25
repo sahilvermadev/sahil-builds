@@ -102,8 +102,7 @@ export const books = [
     "isbn": "9789354352492",
     "year_read": 2024,
     "rating": 4,
-    "genre": "culture",
-    "cover_image": "/covers/9789354352492.jpg"
+    "genre": "culture"
   },
   {
     "title": "Why Nations Fail",
