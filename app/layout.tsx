@@ -5,8 +5,8 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 export const metadata: Metadata = {
-  title: 'My Website',
-  description: 'Welcome to my website',
+  title: 'Sahil Verma',
+  description: 'This is my personal website where i share my thoughts on technology, culture, politics etc.',
 };
 
 export default function RootLayout({

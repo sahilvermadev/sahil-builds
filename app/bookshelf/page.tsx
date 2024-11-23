@@ -5,9 +5,8 @@ import { useState } from 'react';
 import { StarIcon } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from 'next/image';
-import { books } from '@/data/books';
+import { books } from '@/lib/books';
 
-// Define the Book type that matches the data in books.ts
 interface Book {
   title: string;
   author: string;
@@ -18,7 +17,6 @@ interface Book {
   cover_image?: string;
 }
 
-// Load Bungee Shade font
 const bungeeShade = Bungee_Shade({ weight: "400", subsets: ["latin"] });
 
 const Bookshelf = () => {

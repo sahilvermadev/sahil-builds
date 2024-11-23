@@ -3,7 +3,6 @@ import { Bungee_Shade } from '@next/font/google';
 
 const bungeeShade = Bungee_Shade({ weight: "400", subsets: ["latin"] });
 
-// Define the type for TimelineItem props
 interface TimelineItemProps {
   icon: string;
   title: string;
@@ -11,14 +10,12 @@ interface TimelineItemProps {
   date: string;
 }
 
-// Array to hold timeline events
 const timelineData: TimelineItemProps[] = [
   { icon: "💼", title: "Started working at Vayana", description: "Began my professional journey.", date: "July 2023" },
   { icon: "🎓", title: "Graduated from Ashoka University", description: "Earned a bachelor's degree.", date: "May 2023" },
   { icon: "🎓", title: "Graduated from Tagore International School", description: "Completed high school education.", date: "2018" },
 ];
 
-// Group events by year
 const groupedEvents = timelineData.reduce((acc, event) => {
   const year = event.date.split(' ')[1] || event.date;
   if (!acc[year]) acc[year] = [];
@@ -72,7 +69,6 @@ export default function AboutPage() {
   );
 }
 
-// TimelineItem component with type annotations
 function TimelineItem({ icon, title, description, date }: TimelineItemProps) {
   return (
     <li className="flex items-start">

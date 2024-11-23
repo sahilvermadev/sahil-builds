@@ -1,20 +1,20 @@
-/* app/globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* Add any custom global styles below */
 
-html,
-body {
-  height: 100%;
+html {
+  min-height: 100vh;
+  background: linear-gradient(-45deg, #7EB2DD, #F1C8DB, #E9E3B4, #AABD8C) fixed;
+  background-size: 400% 400%;
+  animation: gradient-animation 15s ease infinite;
 }
 
 body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #F7F7FF;
 }
 
 main {
@@ -27,6 +27,37 @@ main {
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-transparent text-foreground;
   }
 }
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+

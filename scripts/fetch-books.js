@@ -17,7 +17,7 @@ const CLONE_DEPTH = 1; // Shallow clone for efficiency
 
 // Define paths
 const TEMP_DIR = path.join(__dirname, 'temp-repo');
-const DATA_DIR = path.join(__dirname, '..', 'data');
+const DATA_DIR = path.join(__dirname, '..', 'lib');
 const BOOKS_FILE = path.join(DATA_DIR, 'books.ts');
 const COVERS_DIR = path.join(__dirname, '..', 'public', 'covers');
 const SOURCE_FOLDER = '6-Books.md';
