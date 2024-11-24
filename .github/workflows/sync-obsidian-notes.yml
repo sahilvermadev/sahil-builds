@@ -20,12 +20,6 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: List Content Directory Before Fetch
-        run: ls -la content/
-
-      - name: List Data Directory Before Fetch
-        run: ls -la lib/
-
       - name: Run Fetch Notes Script
         run: npm run sync-notes
         env:
@@ -36,15 +30,6 @@ jobs:
         env:
           GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_BOOKS_API_KEY }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
-      - name: List Content Directory After Fetch
-        run: ls -la content/
-
-      - name: List Data Directory After Fetch
-        run: ls -la data/
-
-      - name: List Public Covers Directory After Fetch
-        run: ls -la public/covers/
 
       - name: Commit and Push Changes
         run: |
