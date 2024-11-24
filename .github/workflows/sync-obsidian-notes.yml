@@ -24,7 +24,7 @@ jobs:
         run: ls -la content/
 
       - name: List Data Directory Before Fetch
-        run: ls -la data/
+        run: ls -la lib/
 
       - name: Run Fetch Notes Script
         run: npm run sync-notes
