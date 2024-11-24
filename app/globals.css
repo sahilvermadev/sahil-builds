@@ -61,3 +61,8 @@ main {
   background: rgba(255, 255, 255, 0.5);
 }
 
+.custom-prose {
+  max-width: 100ch; /* Adjust this as needed for content width */
+  margin: 0 auto;
+  padding: 1rem; /* Adjust for spacing */
+}

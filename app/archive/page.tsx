@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { getAllPosts, BlogPost } from '@/lib/getPosts';
 import { Bungee_Shade } from '@next/font/google';
-import clsx from 'clsx';
 
 const bungeeShade = Bungee_Shade({ weight: '400', subsets: ['latin'] });
 
@@ -27,14 +26,8 @@ export default function ArchivePage() {
 
   const years = Object.keys(postsByYear).sort((a, b) => parseInt(b) - parseInt(a));
 
-  // Dynamic classes based on whether there are posts
-  const containerClasses = clsx(
-    'min-h-screen relative',
-    hasPosts ? 'text-[#011627]' : 'text-[#8b4c45]'
-  );
-
   return (
-    <div className={containerClasses}>
+    <div className="text-[#011627] min-h-screen relative">
       <div className="container mx-auto px-4 py-8 relative z-10">
         {hasPosts ? (
           <h1

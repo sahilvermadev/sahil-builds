@@ -13,7 +13,7 @@ export default function MDXContent({ frontMatter, mdxSource }: MDXContentProps) 
   const components = useMDXComponents({});
 
   return (
-    <article className="prose mx-auto p-6">
+    <article className="prose custom-prose mx-auto p-6">
       <h1>{frontMatter.title}</h1>
       <MDXRemote {...mdxSource} components={components} />
     </article>

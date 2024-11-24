@@ -6,6 +6,8 @@ import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import slugify from 'slugify';
 import MDXContent from './MDXContent';
+import rehypeMathjax from 'rehype-mathjax';
+import remarkMath from 'remark-math';
 
 interface BlogPostProps {
   params: { slug: string };
@@ -19,6 +21,7 @@ export async function generateStaticParams() {
   return filenames
     .filter((filename) => /\.(md|mdx)$/.test(filename))
     .map((filename) => {
+      // Generate the slug using slugify, replacing spaces with dashes, etc.
       const slug = slugify(filename.replace(/\.mdx?$/, ''), {
         lower: true,
         strict: true,
@@ -28,12 +31,15 @@ export async function generateStaticParams() {
 }
 
 export default async function BlogPost({ params }: BlogPostProps) {
-  const slug = slugify(params.slug, { lower: true, strict: true });
+  // Decode the slug to ensure it matches the generated slugs correctly
+  const decodedSlug = decodeURIComponent(params.slug);
+  const slug = slugify(decodedSlug, { lower: true, strict: true });
 
   const postsDirectory = path.join(process.cwd(), 'content');
   const filenames = fs
     .readdirSync(postsDirectory)
     .filter((filename) => /\.(md|mdx)$/.test(filename));
+
   console.log(filenames);
 
   // Find the filename that matches the slug
@@ -65,13 +71,16 @@ export default async function BlogPost({ params }: BlogPostProps) {
     mdxSource = await serialize(content, {
       scope: frontMatter,
       parseFrontmatter: true,
+      mdxOptions: {
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeMathjax],
+      },
+      
     });
   } catch (error) {
     console.error('MDX Serialization Error:', error);
     throw error;
   }
 
-  return (
-    <MDXContent frontMatter={frontMatter} mdxSource={mdxSource} />
-  );
+  return <MDXContent frontMatter={frontMatter} mdxSource={mdxSource} />;
 }

@@ -40,12 +40,6 @@ try {
     throw new Error(`Source folder "${SOURCE_FOLDER}" does not exist in the repository.`);
   }
 
-  // Remove the existing content directory to prevent duplication
-  if (fs.existsSync(CONTENT_DIR)) {
-    console.log(`Removing existing content directory at "${CONTENT_DIR}"...`);
-    execSync(`rm -rf "${CONTENT_DIR}"`, { stdio: 'inherit' });
-  }
-
   // Function to recursively rename files and directories to replace spaces with dashes
   function renameFiles(dirPath) {
     const files = fs.readdirSync(dirPath);
@@ -59,6 +53,7 @@ try {
 
       // If the name has changed, rename the file/directory
       if (oldPath !== newPath) {
+        console.log(`Renaming: "${oldPath}" -> "${newPath}"`);
         fs.renameSync(oldPath, newPath);
       }
 
@@ -72,6 +67,12 @@ try {
   // Rename files and directories in the source path
   console.log(`Renaming files in "${sourcePath}" to replace spaces with dashes...`);
   renameFiles(sourcePath);
+
+  // Remove the existing content directory to prevent duplication
+  if (fs.existsSync(CONTENT_DIR)) {
+    console.log(`Removing existing content directory at "${CONTENT_DIR}"...`);
+    execSync(`rm -rf "${CONTENT_DIR}"`, { stdio: 'inherit' });
+  }
 
   // Move the source folder to the content directory
   console.log(`Moving "${SOURCE_FOLDER}" to "${CONTENT_DIR}"...`);
