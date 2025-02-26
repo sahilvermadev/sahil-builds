@@ -3,6 +3,7 @@
 import React from 'react';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { useMDXComponents } from '../../../mdx-components';
+// import 'katex/dist/katex.min.css';
 
 interface MDXContentProps {
   frontMatter: any;

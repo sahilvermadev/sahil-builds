@@ -6,9 +6,9 @@
 
 html {
   min-height: 100vh;
-  background: linear-gradient(-45deg, #7EB2DD, #F1C8DB, #E9E3B4, #AABD8C) fixed;
+  /* background: linear-gradient(-45deg, #7EB2DD, #F1C8DB, #E9E3B4, #AABD8C) fixed; */
   background-size: 400% 400%;
-  animation: gradient-animation 15s ease infinite;
+  /* animation: gradient-animation 15s ease infinite; */
 }
 
 body {
@@ -62,7 +62,7 @@ main {
 }
 
 .custom-prose {
-  max-width: 100ch; /* Adjust this as needed for content width */
+  max-width: 80ch; /* Adjust this as needed for content width */
   margin: 0 auto;
   padding: 1rem; /* Adjust for spacing */
 }

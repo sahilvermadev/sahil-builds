@@ -29,9 +29,6 @@ const Header: React.FC = () => {
           <Link href="/archive" className="hover:text-[#b6244f] font-bold transition-colors duration-300">
             Archive
           </Link>
-          <Link href="/bookshelf" className="hover:text-[#b6244f] font-bold transition-colors duration-300">
-            Bookshelf
-          </Link>
           {/* <Link href="/projects" className="hover:text-[#b6244f] font-bold transition-colors duration-300">
             Projects
           </Link> */}

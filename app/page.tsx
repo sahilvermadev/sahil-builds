@@ -23,7 +23,7 @@ export default function HomePage() {
 
         <div className="max-w-2xl mx-auto">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-bold text-[#011627]">Latest Posts</h2>
+            <h2 className="text-2xl font-bold text-[#011627]"></h2>
             <Link href="/archive" className="px-2 py-1 bg-[#011627] text-white font-bold rounded hover:bg-[#b6244f] hover:text-white transition-colors duration-300">
               Read archive
             </Link>

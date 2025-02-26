@@ -1,86 +1,60 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+// pages/archive/[slug].tsx
 import { notFound } from 'next/navigation';
-import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
-import slugify from 'slugify';
+import { getAllPosts, BlogPost } from '@/lib/getPosts';
+import matter from 'gray-matter';
+import path from 'path';
+import fs from 'fs';
 import MDXContent from './MDXContent';
-import rehypeMathjax from 'rehype-mathjax';
 import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex'
 
 interface BlogPostProps {
   params: { slug: string };
 }
 
-// Generate static paths for each post
 export async function generateStaticParams() {
-  const postsDirectory = path.join(process.cwd(), 'content');
-  const filenames = fs.readdirSync(postsDirectory);
-
-  return filenames
-    .filter((filename) => /\.(md|mdx)$/.test(filename))
-    .map((filename) => {
-      // Generate the slug using slugify, replacing spaces with dashes, etc.
-      const slug = slugify(filename.replace(/\.mdx?$/, ''), {
-        lower: true,
-        strict: true,
-      });
-      return { slug };
-    });
+  const posts = getAllPosts();
+  return posts.map(post => ({ slug: post.slug }));
 }
 
-export default async function BlogPost({ params }: BlogPostProps) {
-  // Decode the slug to ensure it matches the generated slugs correctly
-  const decodedSlug = decodeURIComponent(params.slug);
-  const slug = slugify(decodedSlug, { lower: true, strict: true });
+export default async function BlogPostPage({ params }: BlogPostProps) {
+  const { slug } = params;
+  const post = getAllPosts().find(p => p.slug === slug);
+
+  if (!post) {
+    notFound();
+  }
 
   const postsDirectory = path.join(process.cwd(), 'content');
-  const filenames = fs
-    .readdirSync(postsDirectory)
-    .filter((filename) => /\.(md|mdx)$/.test(filename));
+  
+  // Define possible extensions
+  const possibleExtensions: string[] = ['.mdx', '.md'];
+  let filePath: string | null = null;
 
-  console.log(filenames);
-
-  // Find the filename that matches the slug
-  let matchedFilename: string | null = null;
-  for (const filename of filenames) {
-    const filenameSlug = slugify(filename.replace(/\.mdx?$/, ''), {
-      lower: true,
-      strict: true,
-    });
-    console.log('filenameSlug === slug ', filenameSlug, ' === ', slug);
-    if (filenameSlug === slug) {
-      matchedFilename = filename;
+  // Search for the file with supported extensions
+  for (const ext of possibleExtensions) {
+    const potentialPath = path.join(postsDirectory, `${slug}${ext}`);
+    if (fs.existsSync(potentialPath)) {
+      filePath = potentialPath;
       break;
     }
   }
 
-  if (!matchedFilename) {
-    console.error(`No matching file found for slug: ${slug}`);
+  if (!filePath) {
     notFound();
   }
 
-  const filePath = path.join(postsDirectory, matchedFilename);
   const fileContent = fs.readFileSync(filePath, 'utf8');
+  const { content, data: frontMatter } = matter(fileContent);
 
-  const { data: frontMatter, content } = matter(fileContent);
-
-  let mdxSource: MDXRemoteSerializeResult;
-  try {
-    mdxSource = await serialize(content, {
-      scope: frontMatter,
-      parseFrontmatter: true,
-      mdxOptions: {
-        remarkPlugins: [remarkMath],
-        rehypePlugins: [rehypeMathjax],
-      },
-      
-    });
-  } catch (error) {
-    console.error('MDX Serialization Error:', error);
-    throw error;
-  }
+  const mdxSource = await serialize(content, {
+    scope: frontMatter,
+    mdxOptions: {
+      remarkPlugins: [remarkMath],
+      rehypePlugins: [rehypeKatex]
+    },
+  });
 
   return <MDXContent frontMatter={frontMatter} mdxSource={mdxSource} />;
 }

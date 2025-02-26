@@ -1,11 +1,14 @@
 // scripts/fetch-notes.js
 
+
 require('dotenv').config();
 const { execSync } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
 const GH_TOKEN = process.env.GH_TOKEN;
+const GOOGLE_BOOKS_API_KEY = process.env.GOOGLE_BOOKS_API_KEY;
+
 
 // Define repository details
 const REPO_OWNER = 'sahilvermadev';

@@ -1,11 +1,12 @@
-// mdx-components.tsx
 import type { MDXComponents } from 'mdx/types';
 import React from 'react';
 
-export function useMDXComponents(components: MDXComponents): MDXComponents {
+export function useMDXComponents(components: MDXComponents = {}): MDXComponents {
   return {
-    // Wrap your MDX content in a div with the `prose` class
-    wrapper: ({ children }) => <div className="prose">{children}</div>,
-    ...components,
+    // Define a default wrapper for MDX content
+    wrapper: ({ children }: { children: React.ReactNode }) => (
+      <div className="prose">{children}</div>
+    ),
+    ...components, // Merge user-provided components
   };
 }
