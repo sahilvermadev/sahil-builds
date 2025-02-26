@@ -10,6 +10,7 @@ interface PostsByYear {
 }
 
 export default function ArchivePage() {
+
   const posts = getAllPosts();
 
   if (posts.length === 0) {
