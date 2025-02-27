@@ -1,0 +1,60 @@
+---
+title: Proof-of-Stake (PoS)
+date: 2025-01-13
+description: 
+tags:
+---
+Proof-of-Stake (PoS) is an alternative consensus mechanism to Proof-of-Work. Instead of miners solving complex puzzles, PoS relies on validators who lock coins as collateral to propose and validate blocks.
+
+---
+
+### **How Proof-of-Stake Works**
+
+1. **Validator’s Role**:
+    
+    - The validator (or miner) locks a certain amount of coins as collateral.
+    - **N** represents the total number of validators.
+    - The simplest election method is **round-robin**, where validators are chosen in a predetermined sequence. The validator has a **probability of 1/N** to be elected as the next proposer.
+2. **Validator Election**:
+    
+    - Validators are elected to propose blocks based on the amount of coins they lock. The more coins locked, the higher the chances of being selected.
+3. **Desired Properties**:
+    
+    - **Live**: Proposals happen regularly.
+    - **Fair**: Each validator has a proportional chance of being elected.
+    - **Permissionless**: Open participation is allowed, but the validator needs to be able to acquire coins.
+
+---
+
+### **Staking Design Choices**
+
+1. **Required Coins to Lock**:
+    
+    - Can be **fixed** (e.g., Ethereum 2.0 requires 32 ETH).
+    - Can be **variable**, depending on the protocol.
+2. **Delegated-Proof-of-Stake**:
+    
+    - In some systems, **delegated Proof-of-Stake (DPoS)** allows stakeholders to delegate their stake to validators instead of locking it themselves.
+3. **Limiting Validators**:
+    
+    - Some protocols limit the number of validators by:
+        
+        - Randomly selecting a subcommittee.
+        - Delegating stakes to active nodes.
+    - **Note**: In this discussion, fixed staking without delegation is used.
+        
+
+---
+
+### **Ethereum's Switch from PoW to PoS**
+
+- **The Merge (Sep 15, 2022)**:
+    - Ethereum transitioned from Proof-of-Work to Proof-of-Stake.
+    - **Energy Savings**: Reduced electricity usage by 30,000 times.
+    - **Global Impact**: Ethereum’s switch reduced its share of global electricity consumption to about **99.8%** less than before.
+
+
+
+
+## Links
+

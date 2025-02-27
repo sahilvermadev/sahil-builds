@@ -1,0 +1,54 @@
+---
+title: DAOs
+date: 2025-01-12
+description: 
+tags:
+---
+# What is a decentralized autonomous organization?
+1. A DAPP/contract deployed on-chain at a specific address
+2. Anyone can send funds to its treasury.
+3. Anyone can send a proposal on how to use the treasury.
+	1. Participant vote on the proposal. There are 2 ways in which the votes can be done:
+		1. People vote on-chain. Expensive.
+		2. People vote off-chain, after the tally the result is moved on chain. Insecure. 
+		3. Practically people use [Snapshot](https://snapshot.org/#/) to get a quickvote and if the vote passes they do a vote on-chain
+	2. If it gets approved the proposal is executed by the contract
+
+## Examples
+There are over 12000 DAOs on Snapshot.
+1. CollectorDAOs: PleasrDAO, flamingoDAO, ConstitutionDAO
+2. GrantsDAOs: gitcoin(83k members)
+3. ProtocolDAOs: UniswapDAO, CompoundDAO
+4. SocialDAOs: [FWB](https://www.fwb.help/)
+5. InvestmenDAOs
+
+## Many DAO governance models
+DAO governance models are an area of active research. The main questions that any model needs to ask are:
+1. Who can vote?
+2. How to vote?
+3. What voting mechanism?
+The problem in many initial DAO's like gitcoin was that the voting percentages were very low since they were following the classial athenian direct voting mechanisms where each member had a single vote. 
+[More on this:](https://a16zcrypto.com/posts/article/lightspeed-democracy-what-web3-organizations-can-learn-from-the-history-of-governance/)
+
+### The constitutionDAO story
+In 2021 an auction for a physical copy of the constitution was conducted by Sotheby House. ConsitutionDAO was created to participate in this auction and managed to accumulate 42 million dollars from 20k participants but lost to a bid of 43 millions dollars because the treasury was publicly visible on the chain.
+
+So the challene now is how do we create a privateDAO which would make it viable for organsiations to use for business:
+
+### Private DAO treasury
+One simple design thats been used by [JuiceBox](https://juicebox.money/) is as follows:
+- A single Ethereum DAPP manages many DAOs (e.g., JuiceBox).
+- **DAO manager**: Sets up a DAO by publishing a DAO public key and a private key.
+- **Contributor**: Sends funds to the DAPP with a "blinded DAO public key."
+- The DAPP records the contribution.
+    - An observer learns nothing about which DAO received the funds, only the total amount stored on the platform.
+- The DAO manager can later use its secret key to claim funds sent to its DAO.
+
+Similarly we would want:
+1. Private DAO participation 
+2. Private voting
+3. Privately delegate voting rights
+
+Check out Aztec and Aleo which are 2 companies working on these problems.
+## Links
+
