@@ -4,7 +4,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "sync-notes": "node scripts/sync-notes.js"
+    "sync-notes": "node scripts/fetch-notes.js"
   },
   "dependencies": {
     "@next/font": "^14.2.15",
