@@ -1,6 +1,5 @@
 // scripts/fetch-notes.js
 
-
 require('dotenv').config();
 const { execSync } = require('child_process');
 const path = require('path');
@@ -9,7 +8,6 @@ const fs = require('fs');
 const GH_TOKEN = process.env.GH_TOKEN;
 const GOOGLE_BOOKS_API_KEY = process.env.GOOGLE_BOOKS_API_KEY;
 
-
 // Define repository details
 const REPO_OWNER = 'sahilvermadev';
 const REPO_NAME = 'obsidian-notes';
@@ -17,7 +15,7 @@ const CLONE_DEPTH = 1; // Shallow clone for efficiency
 
 // Define paths
 const TEMP_DIR = path.join(__dirname, 'temp-notes');
-const CONTENT_DIR = path.join(__dirname, '..', 'content');
+const CONTENT_DIR = path.join(__dirname, '..', 'app/blog/posts');
 const SOURCE_FOLDER = '5-Publish'; // Folder in the repo to move
 
 if (!GH_TOKEN) {
@@ -43,15 +41,32 @@ try {
     throw new Error(`Source folder "${SOURCE_FOLDER}" does not exist in the repository.`);
   }
 
+  function sanitizeFilename(filename) {
+    return filename
+      .toLowerCase() // Convert to lowercase
+      .replace(/[^a-z0-9.]/g, '-') // Replace any non-alphanumeric chars (except dots) with hyphens
+      .replace(/--+/g, '-') // Replace multiple consecutive hyphens with a single hyphen
+      .replace(/^-+|-+$/g, '') // Remove hyphens from start and end
+      .replace(/\.md(x)?$/, '') // Remove .md or .mdx extension
+      .concat('.mdx'); // Add .mdx extension back
+  }
+
   // Function to recursively rename files and directories to replace spaces with dashes
+  // and to convert .md files to .mdx.
   function renameFiles(dirPath) {
     const files = fs.readdirSync(dirPath);
     for (const file of files) {
       const oldPath = path.join(dirPath, file);
       const stats = fs.statSync(oldPath);
 
-      // Replace spaces with dashes in the file/directory name
-      const newFile = file.replace(/ /g, '-');
+      // Sanitize the filename
+      let newFile = sanitizeFilename(file);
+
+      // If it's a directory, don't add .mdx extension
+      if (stats.isDirectory()) {
+        newFile = newFile.replace(/\.mdx$/, '');
+      }
+
       const newPath = path.join(dirPath, newFile);
 
       // If the name has changed, rename the file/directory
@@ -68,7 +83,7 @@ try {
   }
 
   // Rename files and directories in the source path
-  console.log(`Renaming files in "${sourcePath}" to replace spaces with dashes...`);
+  console.log(`Renaming files in "${sourcePath}" to replace spaces with dashes and update extensions...`);
   renameFiles(sourcePath);
 
   // Remove the existing content directory to prevent duplication

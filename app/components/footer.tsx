@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="w-full p-4 text-m border-[#d47d6f] mt-auto">
       <div className="container mx-auto flex flex-wrap justify-center items-center">
-        <p>© {currentYear} SahilBuilds •</p>
+        <p>© {currentYear} VERSA •</p>
         <Link href="https://mastodon.social/@yourusername" className="ml-2 hover:text-[#d47d6f] transition-colors duration-300">
           Mastodon
         </Link>
